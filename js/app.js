@@ -2,7 +2,9 @@
 
 const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 const cities = ['Seattle', 'Tokyo', 'Dubai', 'Paris', 'Lima'];
-const tableDiv = document.getElementById('table');
+const locationsTable = document.getElementById('locations');
+const tableElem = document.createElement('table');
+  locationsTable.appendChild(tableElem);
 
 
 function locations(location, minCust, maxCust, avgCookSale){
@@ -49,25 +51,56 @@ function hourlySales(){
   }
 }
 
-console.log(hours);
-console.log(cities);
+hourlySales();
+//console.log(hours);
+//console.log(cities);
 
 function addHeaderRow(){
-  const articleElem = document.createElement('article');
-  tableDiv.appendChild(articleElem);
-  const tableElem = document.createElement('table');
-  articleElem.appendChild(tableElem);
+  //const articleElem = document.createElement('article');
+  //locationsTable.appendChild(articleElem);
   const tableHead = document.createElement('thead');
   tableElem.appendChild(tableHead);
-  for(let i = 0; i < hours.length; i++){
+  const headRow = document.createElement('tr');
+  tableHead.appendChild(headRow);
+  const timesHeaderBlock = document.createElement('th');
+  timesHeaderBlock.textContent = 'times:';
+  headRow.appendChild(timesHeaderBlock);
+  for(let i = 0; i < 14; i++){
     const thElement = document.createElement('th');
     thElement.textContent = `${hours[i]}`;
+    headRow.appendChild(thElement);
+    //return thElement;
 
   }
+  
 }
 
 addHeaderRow();
 
+function addLocations(){
+  for(let i = 0; i < locations.array.length; i++){
+    let total = 0;
+    let city = locations.array[i];
+    const tableBody = document.createElement('tbody');
+    tableElem.appendChild(tableBody);
+    const bodyRow = document.createElement('tr');
+    tableBody.appendChild(bodyRow);
+    const bodyHead = document.createElement('th');
+    bodyHead.textContent =  `${city.location}`;
+    bodyRow.appendChild(bodyHead);
+    for(let j = 0; j < 14; j++){
+      const bodyText = document.createElement('td');
+      bodyText.textContent = `${city.cookiesSoldPerHour[j]}`;
+      bodyRow.appendChild(bodyText);
+      total += city.cookiesSoldPerHour[j];
+    }
+    const bodyTotal = document.createElement('td');
+    bodyTotal.textContent = `${total}`;
+    bodyRow.appendChild(bodyTotal);
+  }
+}
+
+addLocations();
 
 
 // //location object
