@@ -4,7 +4,7 @@ const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm',
 const cities = ['Seattle', 'Tokyo', 'Dubai', 'Paris', 'Lima'];
 const locationsTable = document.getElementById('locations');
 const tableElem = document.createElement('table');
-  locationsTable.appendChild(tableElem);
+locationsTable.appendChild(tableElem);
 
 
 function locations(location, minCust, maxCust, avgCookSale){
@@ -102,6 +102,32 @@ function addLocations(){
 
 addLocations();
 
+function addFooterRow(){
+  const tableFooter = document.createElement('tfoot');
+  tableElem.appendChild(tableFooter);
+  const footRow = document.createElement('tr');
+  tableFooter.appendChild(footRow);
+  const totalHeaderBlock = document.createElement('th');
+  totalHeaderBlock.textContent = 'Hourly Totals:';
+  footRow.appendChild(totalHeaderBlock);
+  let hourTotal = 0;
+  let grandTotal = 0;
+  for(let i = 0; i < 14; i++){
+    for(let j = 0; j < locations.array.length; j++){
+      let city = locations.array[j];
+      hourTotal += city.cookiesSoldPerHour[i];
+    }
+    const totalBlocks = document.createElement('td');
+    totalBlocks.textContent = `${hourTotal}`;
+    footRow.appendChild(totalBlocks);
+    grandTotal += hourTotal;
+  }
+  const finalTotalBlock = document.createElement('td');
+  finalTotalBlock.textContent = `${grandTotal}`;
+  footRow.appendChild(finalTotalBlock);
+}
+
+addFooterRow();
 
 // //location object
 // const seattle = {
