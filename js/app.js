@@ -5,6 +5,7 @@ const cities = ['Seattle', 'Tokyo', 'Dubai', 'Paris', 'Lima'];
 const locationsTable = document.getElementById('locations');
 const tableElem = document.createElement('table');
 locationsTable.appendChild(tableElem);
+const formElem = document.getElementById('addLocationForm');
 
 
 function locations(location, minCust, maxCust, avgCookSale){
@@ -128,6 +129,26 @@ function addFooterRow(){
 }
 
 addFooterRow();
+
+formElem.addEventListener('submit', handleSubmit);
+
+function handleSubmit(event){
+  event.preventDefault();
+  console.log(event);
+  console.log(event.target.location.value);
+  const location = event.target.location.value;
+  const minCust = event.target.minCust.value;
+  const maxCust = event.target.maxCust.value;
+  const avgSale = event.target.avgSale.value;
+
+  let inputLocation = new locations(location, minCust, maxCust, avgSale);
+  console.log(inputLocation);
+
+  hourlySales();
+  addLocations();
+  addFooterRow();
+  event.target.reset();
+}
 
 // //location object
 // const seattle = {
