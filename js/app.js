@@ -8,7 +8,7 @@ locationsTable.appendChild(tableElem);
 const formElem = document.getElementById('addLocationForm');
 
 
-function locations(location, minCust, maxCust, avgCookSale){
+function Locations(location, minCust, maxCust, avgCookSale){
   this.location = location;
   this.minCustomer = minCust;
   this.maxCustomer = maxCust;
@@ -19,20 +19,20 @@ function locations(location, minCust, maxCust, avgCookSale){
 
   }
 
-  locations.array.push(this);
+  Locations.array.push(this);
 }
 
-locations.array = [];
+Locations.array = [];
 
-//locations.prototype.
+//Locations.prototype.
 
-new locations('Seattle', 23, 65, 6.3);
-new locations('Tokyo', 3, 24, 1.2);
-new locations('Dubai', 11, 38, 3.7);
-new locations('Paris', 20, 38, 2.3);
-new locations('Lima', 2, 16, 4.6);
+new Locations('Seattle', 23, 65, 6.3);
+new Locations('Tokyo', 3, 24, 1.2);
+new Locations('Dubai', 11, 38, 3.7);
+new Locations('Paris', 20, 38, 2.3);
+new Locations('Lima', 2, 16, 4.6);
 
-console.log(locations.array);
+console.log(Locations.array);
 
 function randomNumberOfCustomers(min, max){
   let numOfCustomers = Math.floor(Math.random()*(max-min) + min);
@@ -41,8 +41,8 @@ function randomNumberOfCustomers(min, max){
 
 //function to generates and stores cookies per hour per location
 function hourlySales(){
-  for(let i = 0; i < locations.array.length; i++){
-    let currentCity = locations.array[i];
+  for(let i = 0; i < Locations.array.length; i++){
+    let currentCity = Locations.array[i];
         for(let j = 0; j < 14; j++){
           let customerAmount = randomNumberOfCustomers(currentCity.minCustomer, currentCity.maxCustomer);
           let cookiesAmount = currentCity.avgCookieSale;
@@ -64,7 +64,7 @@ function addHeaderRow(){
   const headRow = document.createElement('tr');
   tableHead.appendChild(headRow);
   const timesHeaderBlock = document.createElement('th');
-  timesHeaderBlock.textContent = 'times:';
+  timesHeaderBlock.textContent = 'Times:';
   headRow.appendChild(timesHeaderBlock);
   for(let i = 0; i < 14; i++){
     const thElement = document.createElement('th');
@@ -79,9 +79,9 @@ function addHeaderRow(){
 addHeaderRow();
 
 function addLocations(){
-  for(let i = 0; i < locations.array.length; i++){
+  for(let i = 0; i < Locations.array.length; i++){
     let total = 0;
-    let city = locations.array[i];
+    let city = Locations.array[i];
     const tableBody = document.createElement('tbody');
     tableElem.appendChild(tableBody);
     const bodyRow = document.createElement('tr');
@@ -114,8 +114,8 @@ function addFooterRow(){
   let hourTotal = 0;
   let grandTotal = 0;
   for(let i = 0; i < 14; i++){
-    for(let j = 0; j < locations.array.length; j++){
-      let city = locations.array[j];
+    for(let j = 0; j < Locations.array.length; j++){
+      let city = Locations.array[j];
       hourTotal += city.cookiesSoldPerHour[i];
     }
     const totalBlocks = document.createElement('td');
@@ -134,17 +134,20 @@ formElem.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event){
   event.preventDefault();
-  console.log(event);
-  console.log(event.target.location.value);
+  // console.log(event);
+  // console.log(event.target.location.value);
   const location = event.target.location.value;
   const minCust = event.target.minCust.value;
   const maxCust = event.target.maxCust.value;
   const avgSale = event.target.avgSale.value;
 
-  let inputLocation = new locations(location, minCust, maxCust, avgSale);
-  console.log(inputLocation);
+  let inputLocation = new Locations(location, minCust, maxCust, avgSale);
+  // console.log(inputLocation);
+
+  tableElem.innerHTML = '';
 
   hourlySales();
+  addHeaderRow();
   addLocations();
   addFooterRow();
   event.target.reset();
@@ -243,7 +246,7 @@ function handleSubmit(event){
 //   return num;
 // }
 
-// // array list of locations 
+// // array list of Locations 
 // const locationList = [seattle, tokyo, dubai, paris, lima];
 
 
@@ -262,7 +265,7 @@ function handleSubmit(event){
 //   for(let i = 0; i < locationList.length; i++){
 //     let currentCity = locationList[i];
 //     const divElement = document.createElement('div');
-//     locationsDiv.appendChild(divElement);
+//     LocationsDiv.appendChild(divElement);
 //     const locationElement = document.createElement('h3');
 //     divElement.appendChild(locationElement);
 //     divElement.textContent = currentCity.location;
